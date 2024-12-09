@@ -28,9 +28,13 @@ if __name__ == "__main__":
     while dm.not_done():
         
         if eq.is_empty():
+            
+            # if there are no packets ready, schedule one
             eq.schedule_next_packet(rg, re)
             
         else:
+
+            # get information about the packet
             current_event = eq.dequeue()
             event_type = get_event_type(current_event) 
 

@@ -1,5 +1,6 @@
 from packet import *
 from constants import *
+from time import time
 
 class Event:
 
@@ -13,8 +14,9 @@ class Event:
             timing = packet.get_processingTime()
 
         # configure eventData field
-        # format is timing, type, packet
-        self.eventData = (timing, event_type, packet)
+        # format is timing, type, packet, stamp
+        current_time = time()
+        self.eventData = (timing, event_type, packet, current_time)
 
 def create_new_event(packet, event_type):
 
@@ -22,10 +24,18 @@ def create_new_event(packet, event_type):
     new_event = Event(packet, event_type)
     return new_event
 
+def get_timing(event_data):
+    result = event_data[0]
+    return result
+
 def get_event_type(event_data):
     result = event_data[1]
     return result
 
 def get_packet(event_data):
     result = event_data[2]
+    return result
+
+def get_start_marker(event_data):
+    result = event_data[3]
     return result

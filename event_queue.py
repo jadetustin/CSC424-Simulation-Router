@@ -1,9 +1,10 @@
+from auxiliary import *
 from constants import *
 from packet import *
 from event import *
 import queue
 import sys
-import time
+from time import sleep
 
 class EventQueue:
 
@@ -14,7 +15,7 @@ class EventQueue:
 
     def enqueue(self, event):
 
-        # place an event in the queue
+        # mark that an event has entered and place it in the queue
         self.internalQueue.put(event.eventData)
 
     def dequeue(self):
@@ -31,8 +32,15 @@ class EventQueue:
     def handle_arriving_packet(self, gaussian, exponential, 
             event, packet_queue, data_module):
         
-        # get the packet and ID
+        # get the packet
+        # also get the effective start time and expected timing
+        # we will use this to simulate the processing time
         event_packet = get_packet(event)
+        event_expected_time = get_timing(event)
+        event_start_marker = get_start_marker(event)
+        simulate_processing_time(event_start_marker, event_expected_time)
+
+        # get packet ID and print out that the packet has arrived 
         event_packetID = event_packet.get_packetID()
         print("Packet " + str(event_packetID) + " arrived at router.")
         
@@ -46,8 +54,14 @@ class EventQueue:
     def handle_service_completion(self, event, engine, 
             packet_queue, data_module):
 
-        # again get the packet and ID 
+        # again get the packet, time it entered the queue, and expected time
+        # simulate processing time if needed
         event_packet = get_packet(event)
+        event_expected_time = get_timing(event)
+        event_start_marker = get_start_marker(event)
+        simulate_processing_time(event_start_marker, event_expected_time)
+
+        # get the packet ID and print out that the packet was processed
         event_packetID = event_packet.get_packetID()
         print("Packet " + str(event_packetID) + " sent.")
 
@@ -71,3 +85,13 @@ class EventQueue:
 def create_new_event_queue():
     new_event_queue = EventQueue()
     return new_event_queue
+
+def simulate_processing_time(start_marker, expected_time):
+
+    # find the amount of time that has passed since being queued
+    current_waiting_time = get_timespan(start_marker)
+    time_left = expected_time - current_waiting_time
+
+    # if time left in processing is greater than 0, simulate the remaining wait
+    if time_left > 0:
+        sleep(time_left)

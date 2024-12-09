@@ -59,6 +59,7 @@ class DataCollection:
 
     def display_results(self):
 
+        print()
         print("Simulation complete.")
         print("Total uptime: " + str(self.runTime) + " seconds.")
         print("Total number of packets sent: " + str(self.packetsServiced) + ".")

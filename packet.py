@@ -14,7 +14,7 @@ class Packet:
         # such will be assured using other calls/wrappers
         self.packetID = currentPacketID
         self.packetSize = randomized_size
-        self.arrivalTime = randomized_arrival
+        self.arrivalTime = (randomized_arrival / MICROSECONDS_PER_SECOND)
         self.processingTime = (randomized_size / THROUGHPUT)
         self.waitStart = None
 

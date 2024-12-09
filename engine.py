@@ -5,13 +5,11 @@ from time import time
 class Engine:
 
     def __init__(self):
-
         self.packet = None
         self.busy = False
         self.busyStart = None
 
     def set_packet(self, packet):
-
         self.packet = packet
         self.busy = True
         self.busyStart = time()
@@ -40,7 +38,6 @@ class Engine:
         # if empty, do nothing; there is nothing to do
 
     def schedule_service_completion(self, packet, event_queue):
-
         new_event = create_new_event(packet, SERVICE_COMPLETE)
         event_queue.enqueue(new_event)
 

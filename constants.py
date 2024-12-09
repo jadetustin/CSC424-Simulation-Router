@@ -5,6 +5,9 @@ PACKET_THRESHOLD = 10000
 # in bytes per second; equivalent to 100Mbps
 THROUGHPUT = 12500000
 
+# used to balance out exponential randomizer, which outputs in microseconds
+MICROSECONDS_PER_SECOND = 1000000
+
 # used as the starting point for packet ID numbering
 STARTING_ID = 100000
 
