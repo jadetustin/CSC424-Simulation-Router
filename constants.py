@@ -24,4 +24,4 @@ SIGMA = 200
 
 # minimum, maximum packet sizes in bytes
 MINIMUM_PACKET_SIZE = 40
-MAXIMUM_PACKET_SIZE = 1460
+MAXIMUM_PACKET_SIZE = 1500
